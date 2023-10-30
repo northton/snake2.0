@@ -20,7 +20,7 @@
 
     #game-board {
         position: absolute;
-        bottom: 0;
+        bottom: 5px;
         height: 90vmin;
         width: 90vmin;
         border: 5px solid #000;
@@ -40,18 +40,34 @@
         border: .3vmin solid #000;
     }
 
-    .bi {
+    .bi-pause-fill {
         position: absolute;
         font-size: 50px;
         top: 15px;
     }
-</style>
-<script src="game.js" defer type="module"></script>
-<body>
 
-    <i class="bi bi-pause-fill"></i>
+    .bi-play-fill {
+        position: absolute;
+        font-size: 50px;
+        top: 15px;
+        left: 100px;
+    }
+</style>
+
+<script src="game.js" defer type="module"></script>
+
+<body>
+    
+    <button class="bi bi-pause-fill" id="pause"></button>
+    <button class="bi bi-play-fill" id="start"></button>
     <h1>Snake</h1>
     <div id="game-board"></div>
-    
+
+    <!-- <dialog>
+        <p>The game is paused!</p>
+        <button id="restart">Restart</button>
+        <button id="quit">Quit</button>
+    </dialog> -->
+
 </body>
 </html>

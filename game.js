@@ -2,35 +2,61 @@ import { update as updateSnake, draw as drawSnake, snakeSpeed, getSnakeHead, sna
 import { update as updateFood, draw as drawFood } from "./food.js"
 import { outsideGrid } from "./grid.js"
 
-let lastRenderTime = 0
+let request
 let gameOver = false
 const gameBoard = document.getElementById("game-board")
+let pause = document.getElementById("pause")
+let start = document.getElementById("start")
+let i = 0
+// const dialog = document.querySelector("dialog")
+// const restart = document.getElementById("restart")
+// const quit = document.getElementById("quit")
 
-function main (currentTime) {
-    if(gameOver) {
-        if (confirm("You lost. Press OK to restart.")) {
-            window.location = "/"
+start.addEventListener("click", () => {
+    request = setInterval(() => {
+        if(gameOver) {
+            clearInterval(request)
+            if (confirm("You lost. Press OK to restart.")) {
+                window.location = "/"
+            }
+            return
         }
-        return
+        i++
+        console.log(i)
+        update()
+        draw()
+    }, 300)
+})
+
+pause.addEventListener("click", () => {
+    clearInterval(request)
+    if(confirm("The game is paused!Press OK to resume")) {
+        request = setInterval(() => {
+            if(gameOver) {
+                clearInterval(request)
+                if (confirm("You lost. Press OK to restart.")) {
+                    window.location = "/"
+                }
+                return
+            }
+            i++
+            console.log(i)
+            update()
+            draw()
+        }, 300)
+    } else {
+        return window.location = "/"
     }
+})
 
-    window.requestAnimationFrame(main)
-    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
-    if (secondsSinceLastRender < 1 / snakeSpeed) {return}
-
-    console.log("Render")
-    lastRenderTime = currentTime
-
-    update()
-    draw()
-}
-
-window.requestAnimationFrame(main);
+// window.requestAnimationFrame(main) //Starts loop!
+// console.log(button);
 
 function update() {
     updateFood()
     updateSnake()
     checkFailure()
+    // checkPause()
 }
 
 function draw() {
@@ -42,3 +68,25 @@ function draw() {
 function checkFailure() {
     gameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
 }
+
+// function checkPause() {
+    
+// }
+
+// function pauseFunction() {
+        
+//         console.log("stop");
+//         // window.stop()
+//         // confirm("Stopped")
+//         // if (confirm("The game is stopped. Press OK to continue.")) {
+//         //     window.location = "/"
+//         // } else {
+//         //     window.location = "/"
+//         // }
+// }
+
+
+
+
+
+
