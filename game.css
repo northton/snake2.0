@@ -74,3 +74,9 @@ h1 {
     font-family: "Pacifico", cursive;
     top: 0;
 }
+
+.time p { 
+    position: absolute;
+    top: 25px;
+    font-size: 18px;
+}
